@@ -2,11 +2,53 @@
 Author: Mr NguyÔn Ngäc B×nh
 Email: nguyenngocbinhNEU@yahoo.com
 First : 27/12/2013
+Update: 18/10/2019
 */
 
+gen hinhthuctimviec = c53
+#delimit;
+label define hinhthuctimviec 
+1 "Nép ®¬n xin viÖc"
+2 "Liªn hÖ/ t­ vÊn c¬ së dÞch vô viÖc lµm"	
+3 "Qua b¹n bÌ, ng­êi th©n"
+4 "§Æt qu¶ng c¸o t×m viÖc"
+5 "Qua th«ng b¸o tuyÓn dông"
+6 "§ang tham gia pháng vÊn"
+7 "T×m kiÕm viÖc tù do"
+8 "ChuÈn bÞ ®Ó b¾t ®Çu ho¹t ®éng SX-KD"
+99 "Missing";
+#delimit cr
+
+gen prev_occup2 = int(c61/100)
+gen prev_occup1 = .
+replace prev_occup1 = 1 if prev_occup2 >=11 & prev_occup2 <=19
+replace prev_occup1 = 2 if prev_occup2 >=21 & prev_occup2 <=26
+replace prev_occup1 = 3 if prev_occup2 >=31 & prev_occup2 <=36
+replace prev_occup1 = 4 if prev_occup2 >=41 & prev_occup2 <=44
+replace prev_occup1 = 5 if prev_occup2 >=51 & prev_occup2 <=54
+replace prev_occup1 = 6 if prev_occup2 >=61 & prev_occup2 <=63
+replace prev_occup1 = 7 if prev_occup2 >=71 & prev_occup2 <=75
+replace prev_occup1 = 8 if prev_occup2 >=81 & prev_occup2 <=83
+replace prev_occup1 = 9 if prev_occup2 >=91 & prev_occup2 <=96
+replace prev_occup1 = 10 if prev_occup2 >=1 & prev_occup2 <=3
+
+#delimit;
+label define prev_occup1 
+1 "Nhµ l·nh ®¹o trong c¸c ngµnh, c¸c cÊp vµ c¸c ®¬n vÞ	"
+2 "Nhµ chuyªn m«n bËc cao"	
+3 "Nhµ chuyªn m«n bËc trung"
+4 "Nh©n viªn trî lý v¨n phßng"
+5 "Nh©n viªn dÞch vô vµ b¸n hµng"
+6 "Lao ®éng cã kü n¨ng trong n«ng nghiÖp, l©m nghiÖp vµ thñy s¶n"
+7 "Lao ®éng thñ c«ng vµ c¸c nghÒ nghiÖp cã liªn quan kh¸c	"
+8 "Thî l¾p r¸p vµ vËn hµnh m¸y mãc, thiÕt bÞ	"
+9 "Lao ®éng gi¶n ®¬n	"
+10 "Lùc l­îng qu©n ®éi	"
+99 "Missing";
+#delimit cr
 
 
-gen prev_indus2 = int(c61/100)
+gen prev_indus2 = int(c62/100)
 gen prev_indus1 = .
 replace prev_indus1 = 1 if prev_indus2 >=1 & prev_indus2 <=3
 replace prev_indus1 = 2 if prev_indus2 >=5 & prev_indus2 <=9
@@ -100,44 +142,4 @@ label define prev_economic_sector
 #delimit cr
 
 
-gen prev_occup2 = int(c62/100)
-gen prev_occup1 = .
-replace prev_occup1 = 1 if prev_occup2 >=11 & prev_occup2 <=19
-replace prev_occup1 = 2 if prev_occup2 >=21 & prev_occup2 <=26
-replace prev_occup1 = 3 if prev_occup2 >=31 & prev_occup2 <=36
-replace prev_occup1 = 4 if prev_occup2 >=41 & prev_occup2 <=44
-replace prev_occup1 = 5 if prev_occup2 >=51 & prev_occup2 <=54
-replace prev_occup1 = 6 if prev_occup2 >=61 & prev_occup2 <=63
-replace prev_occup1 = 7 if prev_occup2 >=71 & prev_occup2 <=75
-replace prev_occup1 = 8 if prev_occup2 >=81 & prev_occup2 <=83
-replace prev_occup1 = 9 if prev_occup2 >=91 & prev_occup2 <=96
-replace prev_occup1 = 10 if prev_occup2 >=1 & prev_occup2 <=3
 
-#delimit;
-label define prev_occup1 
-1 "Nhµ l·nh ®¹o trong c¸c ngµnh, c¸c cÊp vµ c¸c ®¬n vÞ	"
-2 "Nhµ chuyªn m«n bËc cao"	
-3 "Nhµ chuyªn m«n bËc trung"
-4 "Nh©n viªn trî lý v¨n phßng"
-5 "Nh©n viªn dÞch vô vµ b¸n hµng"
-6 "Lao ®éng cã kü n¨ng trong n«ng nghiÖp, l©m nghiÖp vµ thñy s¶n"
-7 "Lao ®éng thñ c«ng vµ c¸c nghÒ nghiÖp cã liªn quan kh¸c	"
-8 "Thî l¾p r¸p vµ vËn hµnh m¸y mãc, thiÕt bÞ	"
-9 "Lao ®éng gi¶n ®¬n	"
-10 "Lùc l­îng qu©n ®éi	"
-99 "Missing";
-#delimit cr
-
-gen hinhthuctimviec = c53
-#delimit;
-label define hinhthuctimviec 
-1 "Nép ®¬n xin viÖc"
-2 "Liªn hÖ/ t­ vÊn c¬ së dÞch vô viÖc lµm"	
-3 "Qua b¹n bÌ, ng­êi th©n"
-4 "§Æt qu¶ng c¸o t×m viÖc"
-5 "Qua th«ng b¸o tuyÓn dông"
-6 "§ang tham gia pháng vÊn"
-7 "T×m kiÕm viÖc tù do"
-8 "ChuÈn bÞ ®Ó b¾t ®Çu ho¹t ®éng SX-KD"
-99 "Missing";
-#delimit cr
