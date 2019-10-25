@@ -2,17 +2,16 @@
 Author: Mr NguyÔn Ngäc B×nh
 Email: nguyenngocbinhNEU@yahoo.com
 First : 17/05/2016
-Updated:  18/10/2019 : add quarter 4
-chu y bien c6a matinh 
+Updated:  25/10/2019
 */
 clear
 set more off
-global data "D:\ldvl\LFS_2017"
+global data "D:\ldvl\"
 global temp "D:\ldvl\tmp"
 
 use "$data\lfs_2017.dta", clear
 
-gen doituong = c6 ==1
+gen in_vietnam = c6 ==1
 * Bæ sung thªm sè giê lµm viÖc bq/ tuÇn 1-9, 10-19 ... 60+
 * Bs lý do kh«ng tham gia ho¹t ®éng kinh tÕ
 *Lo¹i h×nh kinh tÕ, nªn nhãm nhãm 1, 2 vµo lµm 1
@@ -45,7 +44,7 @@ label define marital_status
 #delimit cr
 
 gen tdvh = c14
-recode tdvh  .=0 1=0 2=1 3=2 4 =3 5/9 =4 if age >=15
+recode tdvh  .=0 1=0 2=1 3=2 4=3 5/9 =4 // if age >=15
 #delimit;
 label define tdvh
 0 "Kh«ng biÕt ®äc biÕt viÕt"
@@ -74,32 +73,34 @@ label define tdvh0
 capture drop train0
 gen train0 = c15
 recode train0 (7=8)
-replace train0 =7 if c14 ==6
-recode train0 1/8 = 9 if c14 ==7
-recode train0 1/9=10 if c14 ==8
-recode train0 1/10= 11 if c14 ==9
+replace train0 = 7 if c14 ==6
+replace train0 = 8 if c15 ==7
+replace train0 = 9 if c14 ==7
+replace train0 = 10 if c14 ==8
+replace train0 = 11 if c14 ==9
 
 #delimit;
 label define train0 
 1 "Kh«ng cã tr×nh ®é, kü n¨ng nghÒ "
 2 "CNKT kh«ng b»ng"
 3 "Kü n¨ng nghÒ d­íi 3 th¸ng"
-4  "Chøng chØ nghÒ d­íi 3 th¸ng"
-5	"S¬ cÊp nghÒ"
+4 "Chøng chØ nghÒ d­íi 3 th¸ng"
+5 "S¬ cÊp nghÒ"
 6 "Trung cÊp nghÒ"
-7	"THCN"
+7 "THCN"
 8 "Cao ®¼ng nghÒ"
-9	"Cao ®¼ng"
-10	"§¹i häc"
-11  "Trªn ®¹i häc" ;
+9 "Cao ®¼ng"
+10 "§¹i häc"
+11 "Trªn ®¹i häc" ;
 #delimit cr
 
 
 gen train = c15
 recode train 2/4 =1 5=3 6=4 7=6
-recode train 1/6 = 5 if c14 ==6
-recode train 1/7= 7 if c14 ==7 
-recode train 1/8= 8 if c14 ==8 | c14 ==9 
+replace train = 5 if c14 ==6
+replace train = 6 if c15 ==7
+replace train = 7 if c14 ==7 
+replace train = 8 if c14 ==8 | c14 ==9 
 recode train (.=1) if age >=15
 #delimit;
 label define train 
@@ -130,7 +131,7 @@ label define train1
 #delimit cr
 
 gen train2 = train
-recode train2 2=1 3/4=2 6=2 5=3 7/8=4 .=1 if age >=15
+recode train2 2=1 3/4=2 6=2 5=3 7/8=4 .=1 // if age >=15
 #delimit;
 label define train2
 1 " Kh«ng cã CMKT"
@@ -167,8 +168,8 @@ gen temp = c55
 recode temp 7/12 = 999
 recode hdkt (.=2) if c56 ==1 & temp ==999 
 */
-gen employment = 1 if hdkt ==1 & doituong ==1
-gen unemployment = 1 if hdkt == 2 & doituong ==1
+gen employment = 1 if hdkt ==1 & in_vietnam ==1
+gen unemployment = 1 if hdkt == 2 & in_vietnam ==1
 gen weekhour = c40 // Tæng sè giê lµm viÖc/ 1 tuÇn
 
 /*
@@ -176,11 +177,10 @@ gen underemployment = 1 if c41 <35 & c49==1 & c50==1
 recode underemployment (.=0) if employment ==1
 replace thieuvieclam =. if ky_3t ==2
 */
-gen underemployment = thieuvieclamthongthuong1
+gen underemployment = 1 if employment ==1 & thieuvieclamthongthuong1 == 1 & in_vietnam == 1
 recode underemployment (.=2) if employment ==1
-replace underemployment =. if doituong !=1
+replace underemployment =. if in_vietnam !=1
 
-replace underemployment = 2 if weekhour <=0 
 label define hdkt 1"Cã viÖc lµm" 2"ThÊt nghiÖp" 99"Ngoµi lùc l­îng lao ®éng", modify
 label define employment 1"Cã viÖc lµm" 2"Kh«ng" 99"missing"
 label define unemployment 1"ThÊt nghiÖp" 2"Kh«ng" 99"missing"
@@ -201,7 +201,7 @@ replace under_emp_rate = 100 if underemployment ==1
 // Tû lÖ tham gia LLLD: Labour force participation rate
 gen lfp_rate = 100 if labour_force ==1 
 recode lfp_rate (.=0) if age >=15
-replace lfp_rate =. if doituong !=1
+replace lfp_rate =. if in_vietnam !=1
 
 // Lo¹i h×nh kinh tÕ nhµ n­íc cã phÇn chia thµnh 3 lo¹i nh­ng trong phÇn nµy gép chung vµo
 gen economic_sector = c26
@@ -422,5 +422,3 @@ label var gender "Giíi tÝnh"
 label var ttnt "Khu vùc"
 
 save "$temp\ldvl_2017.dta", replace
-
-
