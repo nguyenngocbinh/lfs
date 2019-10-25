@@ -2,7 +2,7 @@
 Author: Mr NguyÔn Ngäc B×nh
 Email: nguyenngocbinhNEU@yahoo.com
 First : 27/12/2013
-Update: 18/10/2019
+Update: 25/10/2019
 */
 
 gen hinhthuctimviec = c53
@@ -30,7 +30,7 @@ replace prev_occup1 = 6 if prev_occup2 >=61 & prev_occup2 <=63
 replace prev_occup1 = 7 if prev_occup2 >=71 & prev_occup2 <=75
 replace prev_occup1 = 8 if prev_occup2 >=81 & prev_occup2 <=83
 replace prev_occup1 = 9 if prev_occup2 >=91 & prev_occup2 <=96
-replace prev_occup1 = 10 if prev_occup2 >=1 & prev_occup2 <=3
+replace prev_occup1 = 10 if prev_occup2 >=0 & prev_occup2 <=3
 
 #delimit;
 label define prev_occup1 
@@ -140,6 +140,3 @@ label define prev_economic_sector
 7  "C¸c tæ chøc ®oµn thÓ kh¸c"
 99	"Missing" , modify ;
 #delimit cr
-
-
-
