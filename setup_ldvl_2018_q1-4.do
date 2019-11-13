@@ -241,7 +241,7 @@ gen underemployment = thieuvieclamthongthuong1
 recode underemployment (.=2) if employment ==1
 replace underemployment =. if doituong !=1
 
-replace underemployment = 2 if weekhour <=0 
+* replace underemployment = 2 if weekhour <=0 
 label define hdkt 1"Cã viÖc lµm" 2"ThÊt nghiÖp" 99"Ngoµi lùc l­îng lao ®éng", modify
 label define employment 1"Cã viÖc lµm" 2"Kh«ng" 99"missing"
 label define unemployment 1"ThÊt nghiÖp" 2"Kh«ng" 99"missing"
