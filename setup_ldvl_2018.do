@@ -112,12 +112,18 @@ label define tdvh0
 
 // Do n¨m 2009 kh«ng cã biÕn highest_degree nªn t¹o biÕn train
 capture drop train0
-gen train0 = c19
-recode train0 (7=8)
-replace train0 =7 if c17 ==6
-recode train0 1/8 = 9 if c17 ==7
-recode train0 1/9=10 if c17 ==8
-recode train0 1/10= 11 if c17 ==9
+gen train0 = 99
+replace train0 = 1 if c19 ==1
+replace train0 = 2 if c19 ==2
+replace train0 = 3 if c19 ==3
+replace train0 = 4 if c19 ==4
+replace train0 = 5 if c19 ==5
+replace train0 = 6 if c19 ==6
+replace train0 = 7 if c17 ==6
+replace train0 = 8 if c19 ==7
+replace train0 = 9 if c17 ==7
+replace train0 = 10 if c17 ==8
+replace train0 = 11 if c17 ==9
 
 #delimit;
 label define train0 
@@ -134,14 +140,9 @@ label define train0
 11  "Trªn ®¹i häc" ;
 #delimit cr
 
-
-gen train = c19
-recode train 2/4 =1 5=3 6=4 7=6
-recode train 1/6 = 5 if c17 ==6
-recode train 1/7= 7 if c17 ==7 
-recode train 1/8= 8 if c17 ==8 | c17 ==9 
+gen train = train0
+recode train 2/4 =2 5=3 6=4 7=5 8=6 9=7 10/11=8
 recode train (.=1) if age >=15
-recode train (0=99) if age >=15
 #delimit;
 label define train 
 1	"Kh«ng cã CMKT"
