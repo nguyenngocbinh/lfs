@@ -6,7 +6,7 @@ First : 27/12/2013
 
 
 
-gen prev_indus2 = int(c61/100)
+gen prev_indus2 = int(c62/100)
 gen prev_indus1 = .
 replace prev_indus1 = 1 if prev_indus2 >=1 & prev_indus2 <=3
 replace prev_indus1 = 2 if prev_indus2 >=5 & prev_indus2 <=9
@@ -100,7 +100,7 @@ label define prev_economic_sector
 #delimit cr
 
 
-gen prev_occup2 = int(c62/100)
+gen prev_occup2 = int(c61/100)
 gen prev_occup1 = .
 replace prev_occup1 = 1 if prev_occup2 >=11 & prev_occup2 <=19
 replace prev_occup1 = 2 if prev_occup2 >=21 & prev_occup2 <=26
